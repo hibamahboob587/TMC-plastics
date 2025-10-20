@@ -1,0 +1,17 @@
+
+body {
+  background-image: linear-gradient(315deg, rgba(89, 172, 119, 0.75) 0%, #fff 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+html {
+  scroll-behavior: smooth;
+}
+.fade-in {
+  animation: fadeIn 0.8s ease-in forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
