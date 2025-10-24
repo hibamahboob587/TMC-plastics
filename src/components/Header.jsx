@@ -22,13 +22,13 @@ const Header = () => {
     setMessage("");
 
     try {
-      const response = await fetch("/api/send-quote", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/send-quote`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({ email: userEmail }),
-      });
+    });
 
       const data = await response.json();
       if (response.ok) {
