@@ -78,8 +78,8 @@ app.post("/api/contact", async (req, res) => {
     const mailOptions = {
       from: EMAIL_USER, // Verified email
       to: "plastictmc@gmail.com",
-      subject: `New Inquiry from ${req.body.name}`,
-      html: `... (Aapka HTML content) ...`,
+      subject: `New Inquiry from ${req.body.name},${req.body.company}`,
+      html: `${req.body.message}`,
     };
 
     
@@ -103,7 +103,7 @@ app.post("/api/send-quote", async (req, res) => {
       from: `"TMC Plastics" <${EMAIL_USER}>`,
       to: email,
       subject: "Your Sustainability Quote - TMC Plastics 🌿",
-      html: `... (Aapka HTML content) ...`,
+      html: `THANKYOU FOR REACHING OUT`,
     };
     
     await sgMail.send(mailOptions);
