@@ -5,14 +5,12 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import sgMail from "@sendgrid/mail"; // <-- 1. SendGrid import karein
+import sgMail from "@sendgrid/mail";
 import Contact from "./models/contact.js";
 
 dotenv.config();
 
-// --- Check for essential environment variables ---
-// 2. SENDGRID_API_KEY check karein, EMAIL_PASS hata dein
-const { MONGO_URI, EMAIL_USER, SENDGRID_API_KEY } = process.env;
+const { MONGO_URI, EMAIL_USER, SENDGRID_API_KEY,PORT } = process.env;
 
 if (!MONGO_URI || !EMAIL_USER || !SENDGRID_API_KEY) {
   console.error("❌ FATAL ERROR: Missing environment variables (MONGO_URI, EMAIL_USER, SENDGRID_API_KEY)");
