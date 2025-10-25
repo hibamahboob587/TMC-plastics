@@ -26,8 +26,8 @@ const Footer = () => (
                 <div>
                     <h3 className="text-xl font-bold mb-4">Contact</h3>
                     <p className="text-gray-400"></p>
-                    <p className="text-gray-400">Email: </p>
-                    <p className="text-gray-400">Phone: </p>
+                    <p className="text-gray-400">Email:plastictmc@gmail.com </p>
+                    <p className="text-gray-400">Phone:+92 324 2123466 </p>
                 </div>
             </div>
             <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-500">
