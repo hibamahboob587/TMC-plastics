@@ -78,7 +78,7 @@ app.post("/api/contact", async (req, res) => {
     const mailOptions = {
       from: EMAIL_USER, // Verified email
       to: "plastictmc@gmail.com",
-      subject: `New Inquiry from ${req.body.name},${req.body.company}`,
+      subject: `${req.body.name} from ${req.body.company} wants to collaborate`,
       html: `${req.body.message}`,
     };
 
