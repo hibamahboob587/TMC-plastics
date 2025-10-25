@@ -6,11 +6,11 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import sgMail from "@sendgrid/mail";
-import Contact from "./models/contact.js";
+// import Contact from "./models/contact.js"; // <-- Hata diya
 
 dotenv.config();
 
-const { MONGO_URI, EMAIL_USER, SENDGRID_API_KEY,PORT } = process.env;
+const { MONGO_URI, EMAIL_USER, SENDGRID_API_KEY, PORT } = process.env;
 
 if (!MONGO_URI || !EMAIL_USER || !SENDGRID_API_KEY) {
   console.error("❌ FATAL ERROR: Missing environment variables (MONGO_URI, EMAIL_USER, SENDGRID_API_KEY)");
@@ -60,37 +60,17 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// 3. Nodemailer transporter ko HATA DEIN
-// const transporter = nodemailer.createTransport({ ... });
-
 // 4. SendGrid API Key set karein
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 // --- API Routes ---
 
-app.post("/api/contact", async (req, res) => {
-  console.log("📩 Received contact data:", req.body);
-  try {
-    const contact = new Contact(req.body);
-    await contact.save();
+// --- Contact wala poora route hata diya ---
+// app.post("/api/contact", async (req, res) => {
+//   ...
+// });
 
-    const mailOptions = {
-      from: EMAIL_USER, // Verified email
-      to: "plastictmc@gmail.com",
-      subject: `${req.body.name} from ${req.body.company} wants to collaborate`,
-      html: `${req.body.message}`,
-    };
-
-    
-    await sgMail.send(mailOptions);
-
-    res.status(200).json({ message: "Submitted successfully!" });
-  } catch (error) {
-    console.error("Error sending contact email:", error.response?.body || error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
 app.post("/api/send-quote", async (req, res) => {
   const { email } = req.body;
@@ -119,7 +99,7 @@ app.post("/api/send-quote", async (req, res) => {
 
     res.status(200).json({ message: "Quote sent successfully!" });
   } catch (error) {
-   
+    
     console.error("Error sending quote:", error.response?.body || error);
     res.status(500).json({ message: "Failed to send quote. Please try again later." });
   }
