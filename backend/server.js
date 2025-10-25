@@ -82,7 +82,7 @@ app.post("/api/contact", async (req, res) => {
       html: `... (Aapka HTML content) ...`,
     };
 
-    // 5. transporter.sendMail ki jaga sgMail.send istemal karein
+    
     await sgMail.send(mailOptions);
 
     res.status(200).json({ message: "Submitted successfully!" });
@@ -105,7 +105,7 @@ app.post("/api/send-quote", async (req, res) => {
       subject: "Your Sustainability Quote - TMC Plastics 🌿",
       html: `... (Aapka HTML content) ...`,
     };
-    // 6. transporter.sendMail ki jaga sgMail.send istemal karein
+    
     await sgMail.send(mailOptions);
 
     const notifyAdmin = {
@@ -114,12 +114,12 @@ app.post("/api/send-quote", async (req, res) => {
       subject: `New Sustainability Quote Request`,
       html: `... (Aapka HTML content) ...`,
     };
-    // 7. transporter.sendMail ki jaga sgMail.send istemal karein
+    
     await sgMail.send(notifyAdmin);
 
     res.status(200).json({ message: "Quote sent successfully!" });
   } catch (error) {
-    // 8. Behtar error logging
+   
     console.error("Error sending quote:", error.response?.body || error);
     res.status(500).json({ message: "Failed to send quote. Please try again later." });
   }
