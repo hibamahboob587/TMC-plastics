@@ -19,7 +19,7 @@ if (!MONGO_URI || !EMAIL_USER || !EMAIL_PASS) {
 }
 
 const app = express();
-
+app.set('trust proxy', 1);
 // --- Security Middleware (Additions) ---
 
 // 1. Set various HTTP security headers
