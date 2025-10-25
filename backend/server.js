@@ -28,7 +28,7 @@ app.use(helmet());
 // 2. Configure CORS securely for production
 const allowedOrigins = [
   'http://localhost:5173', // Your local dev environment
-  'https://tmc-plastics.vercel.app', // Your production frontend URL
+  'tmc-plastics-lt7p.vercel.app', // Your production frontend URL
   'https://www.tmcplastics.com' // Your custom domain
 ];
 
