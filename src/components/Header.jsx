@@ -39,25 +39,17 @@ const Header = () => {
       body: formData,
     });
 
+    setMessage("Quote sent successfully!");
+    setUserEmail("");
+    setShowForm(false);
+
     // Step 3: FIX YAHAN HAI - Pehle check karein ki response OK hai ya nahi
-    if (response.ok) {
-      // Success! JSON parse karne ki zaroorat nahi.
-      setMessage("Quote sent successfully!");
-      setUserEmail("");
-      setShowForm(false);
-    } else {
-      
-      const data = await response.json();
-      setMessage(data.message || "Failed to send quote.");
-    }
-  } catch (error) {
     
-    console.error("Error sending quote:", error);
-    setMessage("Something went wrong. Please try again later.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+    } catch (error) {
+        console.error("Error sending quote:", error);
+        setMessage("Something went wrong. Please try again later.");
+    }
+    };
 
   return (
     
