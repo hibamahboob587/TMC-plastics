@@ -17,34 +17,50 @@ const Header = () => {
   ];
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setMessage("");
+  e.preventDefault();
+  setIsSubmitting(true);
+  setMessage("");
 
-    try {
-      const response = await fetch(`https://submit-form.com/FNiQqOf7o`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: userEmail }),
+  // Step 1: FormData object banayein
+  const formData = new FormData();
+  formData.append("email", userEmail);
+  // --- IMPORTANT ---
+  // Agar aapke form mein aur bhi fields hain (jaise name, message),
+  // unhe bhi yahin add karein:
+  // formData.append("name", userName);
+  // formData.append("message", userMessage);
+
+  try {
+    const response = await fetch(`https://submit-form.com/FNiQqOf7o`, {
+      method: "POST",
+      headers: {
+        
+        "Accept": "application/json",
+        
+      },
+      // Step 2: Body mein seedha formData object daalein
+      body: formData,
     });
 
+    // Step 3: FIX YAHAN HAI - Pehle check karein ki response OK hai ya nahi
+    if (response.ok) {
+      // Success! JSON parse karne ki zaroorat nahi.
+      setMessage("Quote sent successfully!");
+      setUserEmail("");
+      setShowForm(false);
+    } else {
+      
       const data = await response.json();
-      if (response.ok) {
-        setMessage("Quote sent successfully!");
-        setUserEmail("");
-         setShowForm(false);
-      } else {
-        setMessage(data.message || "Failed to send quote.");
-      }
-    } catch (error) {
-      console.error("Error sending quote:", error);
-      setMessage("Something went wrong. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
+      setMessage(data.message || "Failed to send quote.");
     }
-  };
+  } catch (error) {
+    
+    console.error("Error sending quote:", error);
+    setMessage("Something went wrong. Please try again later.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     
