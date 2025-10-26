@@ -34,14 +34,13 @@ const Header = () => {
     });
 
     if (response.ok) {
-      setMessage("Quote sent successfully!");
-      setUserEmail("");
-
-      // Wait for 2 seconds before hiding the form
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      setShowForm(false);
-      setMessage(""); // Optional: clear the message after hiding
+        setIsSubmitting(false);
+        setMessage("Quote sent successfully!");
+        setUserEmail("");
+        // Wait for 2 seconds before hiding the form
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        setShowForm(false);
+        setMessage(""); // Optional: clear the message after hiding
     } else {
       console.error("Form submission failed, response not OK.");
       setMessage("Failed to send quote. Please try again.");
@@ -49,12 +48,8 @@ const Header = () => {
     } catch (error) {
         console.error("Error during form submission:", error);
         setMessage("Something went wrong. Please try again later.");
-    } finally {
-        setIsSubmitting(false);
-    }
+    } 
     };
-
-
   return (
     
     <>
