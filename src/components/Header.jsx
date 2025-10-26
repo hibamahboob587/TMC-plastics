@@ -19,7 +19,7 @@ const Header = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
   setIsSubmitting(true);
-  setMessage("");
+  setMessage(""); // Reset message
 
   // Step 1: FormData object banayein
   const formData = new FormData();
@@ -31,24 +31,36 @@ const Header = () => {
     const response = await fetch(`https://submit-form.com/FNiQqOf7o`, {
       method: "POST",
       headers: {
-        
         "Accept": "application/json",
-        
       },
       // Step 2: Body mein seedha formData object daalein
       body: formData,
     });
 
-    setMessage("Quote sent successfully!");
-    setUserEmail("");
-    setShowForm(false);
-
     // Step 3: FIX YAHAN HAI - Pehle check karein ki response OK hai ya nahi
-    
-    }finally {
-    
+    if (response.ok) {
+      // Success! Ab success message dikhao aur form hide karo
+      setMessage("Quote sent successfully!");
+      setUserEmail("");
+      // setUserName(""); // Apna name state bhi reset kar dein
+      // setMessage("");  // Apna message state bhi reset kar dein
+      
+      // Form hide karo
+      setShowForm(false);
+      
+    } else {
+      // Fail hua, lekin user ko kuch nahi dikhana
+      console.error("Form submission failed, but user was not notified.");
+    }
+
+  } catch (error) {
+    // Network error hua, lekin user ko kuch nahi dikhana
+    console.error("Network error during fetch:", error);
+  } finally {
+    // Yeh zaroori hai taaki 'Submitting...' state hate
     setIsSubmitting(false);
-    }};
+  }
+};
 
   return (
     
