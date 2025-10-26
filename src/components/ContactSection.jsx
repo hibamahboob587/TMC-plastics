@@ -27,17 +27,16 @@ const ContactSection = () => {
         if (formData.message.length < 10) return setStatus("Message must be at least 10 characters");
 
         try {
-    // ✅ Send the form data to FormSpark
+    
             const response = await fetch("https://submit-form.com/FCbABI88N", {
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
             body: JSON.stringify(formData),
             });
 
-            // ⚠️ FormSpark returns a CORS “opaque” response — response.ok will still be TRUE,
-            // but sometimes response.status is 0. So we handle both cases.
+            
             if (response.ok || response.type === "opaque") {
-            setStatus("Quote sent successfully!");
+            setStatus("success!");
             setFormData({
                 name: "",
                 company: "",
@@ -46,8 +45,7 @@ const ContactSection = () => {
                 message: "",
             });
 
-            // ✅ Wait 2 seconds before clearing success message
-            setTimeout(() => setStatus(""), 2000);
+            
             } else {
             setStatus("Error submitting form. Please try again.");
             }
