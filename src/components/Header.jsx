@@ -21,37 +21,39 @@ const Header = () => {
   setIsSubmitting(true);
   setMessage(""); // Reset message
 
-  // Step 1: FormData object banayein
   const formData = new FormData();
   formData.append("email", userEmail);
-  
 
   try {
-    const response = await fetch(`https://submit-form.com/FNiQqOf7o`, {
+    const response = await fetch("https://submit-form.com/FNiQqOf7o", {
       method: "POST",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
       },
-      // Step 2: Body mein seedha formData object daalein
       body: formData,
     });
 
-    // Step 3: FIX YAHAN HAI - Pehle check karein ki response OK hai ya nahi
     if (response.ok) {
       setMessage("Quote sent successfully!");
       setUserEmail("");
-      setShowForm(false);
-      
-    } else {
-      // Fail hua, lekin user ko kuch nahi dikhana
-      console.error("Form submission failed, but user was not notified.");
-    }
 
-  }finally {
-    // Yeh zaroori hai taaki 'Submitting...' state hate
-    setIsSubmitting(false);
-  }
-};
+      // Wait for 2 seconds before hiding the form
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      setShowForm(false);
+      setMessage(""); // Optional: clear the message after hiding
+    } else {
+      console.error("Form submission failed, response not OK.");
+      setMessage("Failed to send quote. Please try again.");
+    }
+    } catch (error) {
+        console.error("Error during form submission:", error);
+        setMessage("Something went wrong. Please try again later.");
+    } finally {
+        setIsSubmitting(false);
+    }
+    };
+
 
   return (
     
