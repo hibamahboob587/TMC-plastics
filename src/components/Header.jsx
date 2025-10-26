@@ -24,11 +24,8 @@ const Header = () => {
   // Step 1: FormData object banayein
   const formData = new FormData();
   formData.append("email", userEmail);
-  // --- IMPORTANT ---
-  // Agar aapke form mein aur bhi fields hain (jaise name, message),
-  // unhe bhi yahin add karein:
-  // formData.append("name", userName);
-  // formData.append("message", userMessage);
+  formData.append("name", userName);
+  formData.append("message", message);
 
   try {
     const response = await fetch(`https://submit-form.com/FNiQqOf7o`, {
