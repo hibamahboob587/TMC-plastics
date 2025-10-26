@@ -40,7 +40,7 @@ const Header = () => {
         // Wait for 2 seconds before hiding the form
         await new Promise((resolve) => setTimeout(resolve, 2000));
         setShowForm(false);
-        setMessage(""); // Optional: clear the message after hiding
+        
     } else {
       console.error("Form submission failed, response not OK.");
       setMessage("Failed to send quote. Please try again.");

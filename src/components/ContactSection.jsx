@@ -29,12 +29,12 @@ const ContactSection = () => {
             const response = await fetch("https://submit-form.com/FCbABI88N", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
+                body: formData
             });
 
-            const data = await response.json();
+            
             if (response.ok) {
-                setStatus(data.message);
+                
                 setFormData({ name: '', company: '', email: '', country: '', message: '' });
             } else {
                 setStatus("Error submitting form. Please try again.");
