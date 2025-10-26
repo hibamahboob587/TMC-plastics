@@ -22,7 +22,7 @@ const Header = () => {
     setMessage("");
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/send-quote`, {
+      const response = await fetch(`https://submit-form.com/FCbABI88N`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

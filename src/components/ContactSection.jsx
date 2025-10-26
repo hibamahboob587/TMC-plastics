@@ -26,7 +26,7 @@ const ContactSection = () => {
         if (formData.message.length < 10) return setStatus("Message must be at least 10 characters");
 
         try {
-            const response = await fetch("https://formspree.io/f/myzbgveo", {
+            const response = await fetch("https://submit-form.com/FCbABI88N", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)

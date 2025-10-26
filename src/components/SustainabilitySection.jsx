@@ -9,7 +9,6 @@ const SustainabilitySection = () => (
                 <div className="pr-0 md:pr-10">
                      <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 text-sm font-medium px-4 py-1 rounded-full mb-4">
                         <img src={icon} alt="recycle" className="w-5 h-5"/>
-                        
                         <span>Our Green Commitment</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold text-green-950 mb-4">A Circular Approach to Plastics</h2>

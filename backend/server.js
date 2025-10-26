@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import sgMail from "@sendgrid/mail";
-// import Contact from "./models/contact.js"; // <-- Hata diya
+
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ if (!MONGO_URI || !EMAIL_USER || !SENDGRID_API_KEY) {
 const app = express();
 app.set('trust proxy', 1); // rate-limit ke liye zaroori
 
-// --- Security Middleware (Additions) ---
+
 app.use(helmet());
 
 // 2. Configure CORS securely for production
@@ -53,57 +53,49 @@ const apiLimiter = rateLimit({
 });
 app.use("/api/", apiLimiter);
 
-// --- End of Security Middleware ---
+
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// 4. SendGrid API Key set karein
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
-// --- API Routes ---
+// app.post("/api/send-quote", async (req, res) => {
+//   const { email } = req.body;
+//   if (!email) {
+//     return res.status(400).json({ message: "Email is required." });
+//   }
 
-// --- Contact wala poora route hata diya ---
-// app.post("/api/contact", async (req, res) => {
-//   ...
+//   try {
+//     const mailOptions = {
+//       from: `"TMC Plastics" <${EMAIL_USER}>`,
+//       to: email,
+//       subject: "Your Sustainability Quote - TMC Plastics 🌿",
+//       html: `THANKYOU FOR REACHING OUT`,
+//     };
+    
+//     await sgMail.send(mailOptions);
+
+//     const notifyAdmin = {
+//       from: `"Server Notifier" <${EMAIL_USER}>`,
+//       to: "plastictmc@gmail.com",
+//       subject: `New Sustainability Quote Request`,
+//       html: `... (Aapka HTML content) ...`,
+//     };
+    
+//     await sgMail.send(notifyAdmin);
+
+//     res.status(200).json({ message: "Quote sent successfully!" });
+//   } catch (error) {
+    
+//     console.error("Error sending quote:", error.response?.body || error);
+//     res.status(500).json({ message: "Failed to send quote. Please try again later." });
+//   }
 // });
-
-
-app.post("/api/send-quote", async (req, res) => {
-  const { email } = req.body;
-  if (!email) {
-    return res.status(400).json({ message: "Email is required." });
-  }
-
-  try {
-    const mailOptions = {
-      from: `"TMC Plastics" <${EMAIL_USER}>`,
-      to: email,
-      subject: "Your Sustainability Quote - TMC Plastics 🌿",
-      html: `THANKYOU FOR REACHING OUT`,
-    };
-    
-    await sgMail.send(mailOptions);
-
-    const notifyAdmin = {
-      from: `"Server Notifier" <${EMAIL_USER}>`,
-      to: "plastictmc@gmail.com",
-      subject: `New Sustainability Quote Request`,
-      html: `... (Aapka HTML content) ...`,
-    };
-    
-    await sgMail.send(notifyAdmin);
-
-    res.status(200).json({ message: "Quote sent successfully!" });
-  } catch (error) {
-    
-    console.error("Error sending quote:", error.response?.body || error);
-    res.status(500).json({ message: "Failed to send quote. Please try again later." });
-  }
-});
 
 // --- Start Server ---
 const port = PORT || 5000;
