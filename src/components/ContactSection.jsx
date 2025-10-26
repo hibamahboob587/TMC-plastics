@@ -16,6 +16,7 @@ const ContactSection = () => {
     };
 
     const handleSubmit = async (e) => {
+        setStatus("");
         e.preventDefault();
 
         // Frontend validation
@@ -26,26 +27,35 @@ const ContactSection = () => {
         if (formData.message.length < 10) return setStatus("Message must be at least 10 characters");
 
         try {
+    // ✅ Send the form data to FormSpark
             const response = await fetch("https://submit-form.com/FCbABI88N", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: formData
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify(formData),
             });
 
-            
-            if (response.ok) {
-                
-                setFormData({ name: '', company: '', email: '', country: '', message: '' });
+            // ⚠️ FormSpark returns a CORS “opaque” response — response.ok will still be TRUE,
+            // but sometimes response.status is 0. So we handle both cases.
+            if (response.ok || response.type === "opaque") {
+            setStatus("Quote sent successfully!");
+            setFormData({
+                name: "",
+                company: "",
+                email: "",
+                country: "",
+                message: "",
+            });
+
+            // ✅ Wait 2 seconds before clearing success message
+            setTimeout(() => setStatus(""), 2000);
             } else {
-                setStatus("Error submitting form. Please try again.");
+            setStatus("Error submitting form. Please try again.");
             }
         } catch (error) {
-            console.error("Error:", error);
-            setStatus("Server not responding.");
+            console.error("Submission error:", error);
+            setStatus("Network error. Please try again later.");
         }
-
-        setTimeout(() => setStatus(''), 5000);
-    };
+        };
 
     return (
         <section id="contact" className="py-20 bg-gray-50 font-mono" data-aos="zoom-out">
