@@ -24,17 +24,14 @@ const Header = () => {
     try {
       const response = await fetch(`https://submit-form.com/FNiQqOf7o`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: userEmail }),
+        
     });
 
       const data = await response.json();
       if (response.ok) {
         setMessage("Quote sent successfully!");
         setUserEmail("");
-         setShowForm(false);
+        setShowForm(false);
       } else {
         setMessage(data.message || "Failed to send quote.");
       }
