@@ -45,11 +45,10 @@ const Header = () => {
 
     // Step 3: FIX YAHAN HAI - Pehle check karein ki response OK hai ya nahi
     
-    } catch (error) {
-        console.error("Error sending quote:", error);
-        setMessage("Something went wrong. Please try again later.");
-    }
-    };
+    }finally {
+    
+    setIsSubmitting(false);
+    }};
 
   return (
     
